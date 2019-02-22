@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.snowhobby.db.dao.TeamDao" >
+  <resultMap id="BaseResultMap" type="com.snowhobby.db.entity.Team" >
+    <id column="tid" property="tid" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="introduction" property="introduction" jdbcType="VARCHAR" />
+    <result column="altitude" property="altitude" jdbcType="VARCHAR" />
+    <result column="dayNo" property="dayno" jdbcType="VARCHAR" />
+    <result column="goOff" property="gooff" jdbcType="VARCHAR" />
+    <result column="dpeCity" property="dpecity" jdbcType="VARCHAR" />
+    <result column="imagePath" property="imagepath" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    tid, name, introduction, altitude,dayNo,goOff,dpeCity, imagePath, title
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.snowhobby.db.entity.TeamExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from team
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from team
+    where tid = #{tid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from team
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from team
+    where tid = #{tid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.snowhobby.db.entity.TeamExample" >
+    delete from team
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.snowhobby.db.entity.Team" >
+    insert into team (tid, name, introduction, 
+      altitude,dayNo,goOff,dpeCity, imagePath, title
+      )
+    values (#{tid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{introduction,jdbcType=VARCHAR}, #{altitude,jdbcType=VARCHAR}, 
+      #{dayno,jdbcType=VARCHAR},#{gooff,jdbcType=VARCHAR},#{dpecity,jdbcType=VARCHAR}, #{imagepath,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.snowhobby.db.entity.Team" >
+    insert into team
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        tid,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="introduction != null" >
+        introduction,
+      </if>
+      <if test="altitude != null" >
+        altitude,
+      </if>
+      <if test="dayno != null" >
+        dayNo,
+      </if>
+      <if test="gooff != null" >
+        goOff,
+      </if>
+      <if test="dpecity != null" >
+        dpeCity,
+      </if>
+      <if test="imagepath != null" >
+        imagePath,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        #{tid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null" >
+        #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="altitude != null" >
+        #{altitude,jdbcType=VARCHAR},
+      </if>
+      <if test="dayno != null" >
+        #{dayno,jdbcType=VARCHAR},
+      </if>
+      <if test="gooff != null" >
+         #{gooff,jdbcType=VARCHAR},
+      </if>
+      <if test="dpecity != null" >
+        #{dpecity,jdbcType=VARCHAR},
+      </if>
+      <if test="imagepath != null" >
+        #{imagepath,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.snowhobby.db.entity.TeamExample" resultType="java.lang.Integer" >
+    select count(*) from team
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update team
+    <set >
+      <if test="record.tid != null" >
+        tid = #{record.tid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.introduction != null" >
+        introduction = #{record.introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="record.altitude != null" >
+        altitude = #{record.altitude,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dayno != null" >
+        dayNo = #{record.dayno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gooff != null" >
+        goOff = #{record.gooff,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dpecity != null" >
+        dpeCity = #{record.dpecity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imagepath != null" >
+        imagePath = #{record.imagepath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update team
+    set tid = #{record.tid,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      introduction = #{record.introduction,jdbcType=VARCHAR},
+      altitude = #{record.altitude,jdbcType=VARCHAR},
+      dayNo = #{record.dayno,jdbcType=VARCHAR},
+      goOff = #{record.gooff,jdbcType=VARCHAR},
+      dpeCity = #{record.dpecity,jdbcType=VARCHAR},
+      imagePath = #{record.imagepath,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.snowhobby.db.entity.Team" >
+    update team
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null" >
+        introduction = #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="altitude != null" >
+        altitude = #{altitude,jdbcType=VARCHAR},
+      </if>
+      <if test="dayno != null" >
+        dayNo = #{dayno,jdbcType=VARCHAR},
+      </if>
+      <if test="gooff != null" >
+        goOff = #{gooff,jdbcType=VARCHAR},
+      </if>
+      <if test="dpecity != null" >
+        dpeCity = #{dpecity,jdbcType=VARCHAR},
+      </if>
+      <if test="imagepath != null" >
+        imagePath = #{imagepath,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where tid = #{tid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.snowhobby.db.entity.Team" >
+    update team
+    set name = #{name,jdbcType=VARCHAR},
+      introduction = #{introduction,jdbcType=VARCHAR},
+      altitude = #{altitude,jdbcType=VARCHAR},
+      dayNo = #{dayno,jdbcType=VARCHAR},
+      goOff = #{gooff,jdbcType=VARCHAR},
+      dpeCity = #{dpecity,jdbcType=VARCHAR},
+      imagePath = #{imagepath,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR}
+    where tid = #{tid,jdbcType=VARCHAR}
+  </update>
+</mapper>

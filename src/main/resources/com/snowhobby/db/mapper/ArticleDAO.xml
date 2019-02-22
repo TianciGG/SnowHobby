@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.snowhobby.db.dao.ArticleDAO">
+  <resultMap id="BaseResultMap" type="com.snowhobby.db.entity.Article">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="article_title" jdbcType="VARCHAR" property="articleTitle" />
+    <result column="article_content" jdbcType="VARCHAR" property="articleContent" />
+    <result column="article_date" jdbcType="VARCHAR" property="articleDate" />
+    <result column="uid" jdbcType="VARCHAR" property="uid" />
+  </resultMap>
+	<select id="getAllArticle" resultMap="BaseResultMap">
+		select * from t_article order by article_date desc
+	</select>
+	
+	<select id="save" >
+		insert into t_article values(#{id,jdbcType=VARCHAR}, #{articleTitle,jdbcType=VARCHAR},#{articleContent,jdbcType=VARCHAR},
+		#{articleDate,jdbcType=VARCHAR},#{uid,jdbcType=VARCHAR})
+	</select>
+
+</mapper>
